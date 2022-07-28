@@ -4,11 +4,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.NavController
-import androidx.navigation.NavGraph
-import androidx.navigation.NavType
-import androidx.navigation.activity
-import androidx.navigation.createGraph
+import androidx.navigation.*
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.fragment
 import com.mfahimi.demo.navigation.SearchParameters
@@ -41,8 +37,8 @@ class MainActivity : AppCompatActivity() {
 //            navigateToFragmentWithPrimitiveArgument("first arg", "second arg")
 //            navigateToFragmentWithCustomParameter()
 //            navigateToActivityDestination()
-            navigateToNestedGraph("yyy", "nestedgraph")
-//            navigateViaDeeplink()
+//            navigateToNestedGraph("yyy", "nestedgraph")
+            navigateViaDeeplink()
         }
 
     }
@@ -96,10 +92,10 @@ class MainActivity : AppCompatActivity() {
             fragment<DeepLinkFragment>("${NavRoutes.deep_link}") {
                 label = "DeepLink Fragment"
                 deepLink(//navDeepLink {
-                    uriPattern = "${baseUri}/{id}"
+                    uriPattern = "${baseUri}/{${NavArguments.plant_id}}"
                 )
                 deepLink(//navDeepLink {
-                    uriPattern = "${baseUri}/{id}?name={plant_name}"
+                    uriPattern = "${baseUri}/{${NavArguments.plant_id}}?name={${NavArguments.plant_name}}"
                 )
             }
 
@@ -163,9 +159,11 @@ class MainActivity : AppCompatActivity() {
         return graph
     }
 
-    /** not working*/
+    /** it works*/
     private fun navigateViaDeeplink() {
-        navController.navigate("${baseUri}/ddd")
+        val deepLink = "${baseUri}/foo?name=bar"
+        val uri = Uri.parse(deepLink)
+        navController.navigate(uri)
     }
 
     /** not working with parameter.*/

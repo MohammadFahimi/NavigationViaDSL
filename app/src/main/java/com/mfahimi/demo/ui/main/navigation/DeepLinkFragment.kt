@@ -22,8 +22,8 @@ class DeepLinkFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val plantId: String? = arguments?.getString("id")
-        val plantName: String? = arguments?.getString("name")
+        val plantId: String? = arguments?.getString(NavArguments.plant_id)
+        val plantName: String? = arguments?.getString(NavArguments.plant_name)
 
         view.findViewById<TextView>(R.id.message).text = "id: $plantId, name:$plantName"
     }
